@@ -1,5 +1,8 @@
 package dev.rpg;
 
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+
 import dev.rpg.display.Display;
 
 public class Game implements Runnable {
@@ -7,6 +10,8 @@ public class Game implements Runnable {
 	private Display display;
 	private Thread thread;
 	private boolean running = false;
+	private BufferStrategy bs;
+	private Graphics g;
 	
 	public int width, height;
 	public String title;
@@ -27,7 +32,20 @@ public class Game implements Runnable {
 	}
 	
 	private void render(){
+		bs = display.getCanvas().getBufferStrategy();
+		if(bs == null){
+			display.getCanvas().createBufferStrategy(3);
+			return;
+		}
 		
+		g = bs.getDrawGraphics();
+		
+		//start render
+		g.fillRect(0, 0, width, height);
+		//end render
+		
+		bs.show();
+		g.dispose();
 	}
 	
 	public void run(){

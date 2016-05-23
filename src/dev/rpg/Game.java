@@ -39,9 +39,12 @@ public class Game implements Runnable {
 		}
 		
 		g = bs.getDrawGraphics();
+		//clear screen
+		g.clearRect(0, 0, width, height);
 		
 		//start render
-		g.fillRect(0, 0, width, height);
+		
+		
 		//end render
 		
 		bs.show();

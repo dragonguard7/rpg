@@ -5,6 +5,7 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 
 import dev.rpg.display.Display;
+import dev.rpg.gfx.Assets;
 import dev.rpg.gfx.ImageLoader;
 import dev.rpg.gfx.SpriteSheet;
 
@@ -17,12 +18,7 @@ public class Game implements Runnable {
 	private Graphics g;
 	
 	public int width, height;
-	public String title;
-	
-	//Test code
-	private BufferedImage test; //Test code
-	private SpriteSheet sheet;
-	
+	public String title;	
 	
 	public Game(String title, int width, int height){
 		this.width = width;
@@ -33,8 +29,7 @@ public class Game implements Runnable {
 	//initialize graphics
 	private void init(){
 		display = new Display(title,width, height);
-		test = ImageLoader.loadImage("/textures/spritesheet256.png"); //Test code
-		sheet = new SpriteSheet(test);
+		Assets.init();
 	}
 	
 	private void tick(){
@@ -54,7 +49,7 @@ public class Game implements Runnable {
 		
 		//start render
 		
-		g.drawImage(sheet.crop(0, 0, 32, 32), 20, 20, null);
+		g.drawImage(Assets.playerStill, 10, 10, null);
 		
 		//end render
 		

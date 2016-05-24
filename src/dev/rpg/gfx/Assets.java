@@ -4,13 +4,13 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 	
-	private static final int width = 32, height = 32;
+	private static final int width = 64, height = 64;
 	public static BufferedImage grass, water, tree, stone, road, dirt, brick;
 	public static BufferedImage playerStill, playerUp, playerDown, playerRight, playerLeft;
 	
 	
 	public static void init(){
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/spritesheet256.png"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/spritesheet512.png"));
 		
 		playerStill = sheet.crop(0 * width, 4 * height, width, height);
 		playerRight = sheet.crop(0 * width, 0 * height, width, height);

@@ -2,12 +2,11 @@ package dev.rpg;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-
 import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
-import dev.rpg.gfx.ImageLoader;
-import dev.rpg.gfx.SpriteSheet;
+import dev.rpg.states.GameState;
+import dev.rpg.states.State;
+
 
 public class Game implements Runnable {
 	
@@ -17,10 +16,12 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
+	//States
+	private State gameState;
+	
 	public int width, height;
 	public String title;	
 	
-	int x = 0;
 	
 	public Game(String title, int width, int height){
 		this.width = width;
@@ -32,10 +33,16 @@ public class Game implements Runnable {
 	private void init(){
 		display = new Display(title,width, height);
 		Assets.init();
+		
+		gameState = new GameState(); //test code
+		State.setState(gameState); //test code
 	}
 	
 	private void tick(){
-		x += 1;
+		if(State.getState() != null){
+			State.getState().tick();
+		}
+
 	}
 	
 	private void render(){
@@ -51,7 +58,9 @@ public class Game implements Runnable {
 		
 		//start render
 		
-		g.drawImage(Assets.playerStill, x, 10, null);
+		if(State.getState() != null){
+			State.getState().render(g);
+		}
 		
 		//end render
 		

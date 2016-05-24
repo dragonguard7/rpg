@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
+import dev.rpg.gfx.GameCamera;
 import dev.rpg.input.KeyManager;
 import dev.rpg.states.GameState;
 import dev.rpg.states.State;
@@ -17,7 +18,9 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
-	public int width, height;
+
+	private int width, height;
+	
 	public String title;	
 	
 	//States
@@ -34,11 +37,16 @@ public class Game implements Runnable {
 		keyManager = new KeyManager();
 	}
 	
-	//initialize graphics
+	//Camera
+	private GameCamera gameCamera;
+	
+//initialize graphics
 	private void init(){
 		display = new Display(title,width, height);
 		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
+		
+		gameCamera = new GameCamera(this, 0, 0);
 		
 		gameState = new GameState(this); //test code
 		State.setState(gameState); //test code
@@ -112,10 +120,6 @@ public class Game implements Runnable {
 		stop();//incase it didnt stop already
 	}
 	
-	public KeyManager getKeyManager(){
-		return keyManager;
-	}
-	
 	public synchronized void start(){
 		if(running){
 			return;
@@ -135,5 +139,30 @@ public class Game implements Runnable {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	//******Getters and setters
+	public KeyManager getKeyManager(){
+		return keyManager;
+	}
+	
+	public GameCamera getGameCamera(){
+		return gameCamera;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 }

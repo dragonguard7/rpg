@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
+import dev.rpg.input.KeyManager;
 import dev.rpg.states.GameState;
 import dev.rpg.states.State;
 
@@ -16,29 +17,36 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics g;
 	
-	//States
-	private State gameState;
-	
 	public int width, height;
 	public String title;	
 	
+	//States
+	private State gameState;
+	
+	
+	//Inputs
+	private KeyManager keyManager;
 	
 	public Game(String title, int width, int height){
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 	}
 	
 	//initialize graphics
 	private void init(){
 		display = new Display(title,width, height);
+		display.getFrame().addKeyListener(keyManager);
 		Assets.init();
 		
-		gameState = new GameState(); //test code
+		gameState = new GameState(this); //test code
 		State.setState(gameState); //test code
 	}
 	
 	private void tick(){
+		keyManager.tick();
+		
 		if(State.getState() != null){
 			State.getState().tick();
 		}
@@ -102,6 +110,10 @@ public class Game implements Runnable {
 		}
 		
 		stop();//incase it didnt stop already
+	}
+	
+	public KeyManager getKeyManager(){
+		return keyManager;
 	}
 	
 	public synchronized void start(){

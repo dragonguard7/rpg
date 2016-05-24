@@ -2,8 +2,10 @@ package dev.rpg;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 import dev.rpg.display.Display;
+import dev.rpg.gfx.ImageLoader;
 
 public class Game implements Runnable {
 	
@@ -16,6 +18,10 @@ public class Game implements Runnable {
 	public int width, height;
 	public String title;
 	
+	//Test code
+	private BufferedImage testImage; //Test code
+	
+	
 	public Game(String title, int width, int height){
 		this.width = width;
 		this.height = height;
@@ -25,6 +31,7 @@ public class Game implements Runnable {
 	//initialize graphics
 	private void init(){
 		display = new Display(title,width, height);
+		testImage = ImageLoader.loadImage("/textures/player.png"); //Test code
 	}
 	
 	private void tick(){
@@ -44,6 +51,7 @@ public class Game implements Runnable {
 		
 		//start render
 		
+		g.drawImage(testImage, 20, 20, null);
 		
 		//end render
 		

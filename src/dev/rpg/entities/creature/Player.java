@@ -1,9 +1,7 @@
 package dev.rpg.entities.creature;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-
 import dev.rpg.Handler;
 import dev.rpg.gfx.Animation;
 import dev.rpg.gfx.Assets;

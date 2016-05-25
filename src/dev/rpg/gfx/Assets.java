@@ -5,8 +5,10 @@ import java.awt.image.BufferedImage;
 public class Assets {
 	
 	private static final int width = 64, height = 64;
-	public static BufferedImage playerStill, grass, water, tree, stone, road, dirt, brick;
+	public static BufferedImage playerStill, grass, water, tree, stone, road, dirt, brick, monster;
 	public static BufferedImage[] playerUp, playerDown, playerRight, playerLeft;
+	public static BufferedImage[] startButton;
+	
 
 	
 	
@@ -18,6 +20,7 @@ public class Assets {
 		playerLeft = new BufferedImage[2];
 		playerUp = new BufferedImage[2];
 		playerDown = new BufferedImage[2];
+		startButton = new BufferedImage[2];
 		
 		playerRight[0] = sheet.crop(1 * width, 2 * height, width, height);
 		playerRight[1] = sheet.crop(0 * width, 2 * height, width, height);
@@ -28,6 +31,9 @@ public class Assets {
 		playerDown[0] = sheet.crop(1 * width, 0 * height, width, height);
 		playerDown[1] = sheet.crop(0 * width, 0 * height, width, height);
 		playerStill = playerDown[0];
+		startButton[0] = sheet.crop(6 * width, 6 * height, width *2, height);
+		startButton[1] = sheet.crop(6 * width, 7 * height, width *2, height);
+		monster = sheet.crop(2 * width, 2 * height, width, height);
 		
 		
 		grass = sheet.crop(2 * width, 1 * height, width, height);

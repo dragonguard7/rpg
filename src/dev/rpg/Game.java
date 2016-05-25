@@ -6,7 +6,9 @@ import dev.rpg.display.Display;
 import dev.rpg.gfx.Assets;
 import dev.rpg.gfx.GameCamera;
 import dev.rpg.input.KeyManager;
+import dev.rpg.input.MouseManager;
 import dev.rpg.states.GameState;
+import dev.rpg.states.MenuState;
 import dev.rpg.states.State;
 
 
@@ -24,37 +26,45 @@ public class Game implements Runnable {
 	public String title;	
 	
 	//States
-	private State gameState;
+	public State gameState;
+	public State menuState;
 	
 	
 	//Inputs
 	private KeyManager keyManager;
-	
+	private MouseManager mouseManager;
+
+//Constructor	
 	public Game(String title, int width, int height){
 		this.width = width;
 		this.height = height;
 		this.title = title;
 		keyManager = new KeyManager();
+		mouseManager = new MouseManager();
 	}
 	
-	//Camera
+//Camera
 	private GameCamera gameCamera;
 	
-	//Handler
+//Handler
 	private Handler handler;
 	
 //initialize graphics
 	private void init(){
 		display = new Display(title,width, height);
 		display.getFrame().addKeyListener(keyManager);
+		display.getFrame().addMouseListener(mouseManager);
+		display.getFrame().addMouseMotionListener(mouseManager);
+		display.getCanvas().addMouseListener(mouseManager);			//The focus might not be on frame so put it on both frame and canvas
+		display.getCanvas().addMouseMotionListener(mouseManager);
 		Assets.init();
 		
 		handler = new Handler(this);
 		gameCamera = new GameCamera(handler, 0, 0);
 		
-		
+		menuState = new MenuState(handler);
 		gameState = new GameState(handler); //test code
-		State.setState(gameState); //test code
+		State.setState(menuState); //test code
 	}
 	
 	private void tick(){
@@ -149,6 +159,10 @@ public class Game implements Runnable {
 	//******Getters and setters
 	public KeyManager getKeyManager(){
 		return keyManager;
+	}
+	
+	public MouseManager getMouseManager(){
+		return mouseManager;
 	}
 	
 	public GameCamera getGameCamera(){

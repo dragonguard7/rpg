@@ -28,7 +28,7 @@ public class World {
 		entityManager.getPlayer().setX(xSpawn);
 		entityManager.getPlayer().setX(ySpawn);
 	}
-	
+
 	public void tick(){
 		entityManager.tick();
 	}
@@ -89,5 +89,9 @@ public class World {
 	public int getHeight(){
 		return height;
 	}
-	
+		
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
+
 }

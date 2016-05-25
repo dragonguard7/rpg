@@ -3,6 +3,9 @@ package dev.rpg.worlds;
 import java.awt.Graphics;
 
 import dev.rpg.Handler;
+import dev.rpg.entities.EntityManager;
+import dev.rpg.entities.creature.Player;
+import dev.rpg.entities.statics.Tree;
 import dev.rpg.tiles.Tile;
 import dev.rpg.utils.Utils;
 
@@ -12,14 +15,22 @@ public class World {
 	private int width, height;
 	private int xSpawn, ySpawn;
 	private int[][] tiles;
+//Entities
+	private EntityManager entityManager;
 	
 	public World(Handler handler, String path){
 		this.handler = handler;
+		entityManager = new EntityManager(handler, new Player(handler,100,100));
+		entityManager.addEntity(new Tree(handler, 100, 250));
+		
 		loadWorld(path);
+		
+		entityManager.getPlayer().setX(xSpawn);
+		entityManager.getPlayer().setX(ySpawn);
 	}
 	
 	public void tick(){
-		
+		entityManager.tick();
 	}
 	
 	public void render(Graphics g){
@@ -34,6 +45,9 @@ public class World {
 				getTile(x,y).render(g,(int)(x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),(int)(y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
 		}
+	//Entity
+		entityManager.render(g);
+		
 	}
 	
 	//This looks into Tiles array and looks up the 

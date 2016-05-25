@@ -40,6 +40,9 @@ public class Game implements Runnable {
 	//Camera
 	private GameCamera gameCamera;
 	
+	//Handler
+	private Handler handler;
+	
 //initialize graphics
 	private void init(){
 		display = new Display(title,width, height);
@@ -47,8 +50,9 @@ public class Game implements Runnable {
 		Assets.init();
 		
 		gameCamera = new GameCamera(this, 0, 0);
+		handler = new Handler(this);
 		
-		gameState = new GameState(this); //test code
+		gameState = new GameState(handler); //test code
 		State.setState(gameState); //test code
 	}
 	

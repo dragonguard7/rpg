@@ -1,8 +1,7 @@
 package dev.rpg.states;
 
 import java.awt.Graphics;
-
-import dev.rpg.Game;
+import dev.rpg.Handler;
 import dev.rpg.entities.creature.Player;
 import dev.rpg.worlds.World;
 
@@ -12,10 +11,12 @@ public class GameState extends State {
 	private World world;
 	
 	//constructor
-	public GameState(Game game){
-		super(game);
-		player = new Player(game, 100, 100);
-		world = new World(game, "res/worlds/world1.txt");
+	public GameState(Handler handler){
+		super(handler);
+		world = new World(handler, "res/worlds/world1.txt");
+		handler.setWorld(world);
+		player = new Player(handler, 100, 100);
+		
 	}
 	
 	public void tick() {

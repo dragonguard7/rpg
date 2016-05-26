@@ -6,6 +6,7 @@ import dev.rpg.Handler;
 import dev.rpg.entities.EntityManager;
 import dev.rpg.entities.creature.Player;
 import dev.rpg.entities.statics.Tree;
+import dev.rpg.items.ItemManager;
 import dev.rpg.tiles.Tile;
 import dev.rpg.utils.Utils;
 
@@ -15,13 +16,21 @@ public class World {
 	private int width, height;
 	private int xSpawn, ySpawn;
 	private int[][] tiles;
+	
 //Entities
 	private EntityManager entityManager;
-	
+//Item
+	private ItemManager itemManager;
+
+//Constructor
 	public World(Handler handler, String path){
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler,100,100));
+		itemManager = new ItemManager(handler);
+		
 		entityManager.addEntity(new Tree(handler, 100, 250));
+		entityManager.addEntity(new Tree(handler, 200, 350));
+		entityManager.addEntity(new Tree(handler, 300, 450));
 		
 		loadWorld(path);
 		
@@ -39,16 +48,19 @@ public class World {
 		int yStart = (int)Math.max(0, handler.getGameCamera().getyOffset() / Tile.TILEHEIGHT);
 		int yEnd = (int)Math.min(height, (handler.getGameCamera().getyOffset() + handler.getHeight()) / Tile.TILEHEIGHT +1);
 		
-		
+//World		
 		for(int y = yStart; y < yEnd; y++){
 			for(int x = xStart; x < xEnd; x++){
 				getTile(x,y).render(g,(int)(x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),(int)(y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
 		}
-	//Entity
+		
+//Items
+		itemManager.render(g);
+//Entity
 		entityManager.render(g);
 		
-	}
+	}//End rendering
 	
 	//This looks into Tiles array and looks up the 
 	public Tile getTile(int x, int y){
@@ -94,4 +106,21 @@ public class World {
 		return entityManager;
 	}
 
+	public Handler getHandler() {
+		return handler;
+	}
+
+	public void setHandler(Handler handler) {
+		this.handler = handler;
+	}
+
+	public ItemManager getItemManager() {
+		return itemManager;
+	}
+
+	public void setItemManager(ItemManager itemManager) {
+		this.itemManager = itemManager;
+	}
+
+	
 }

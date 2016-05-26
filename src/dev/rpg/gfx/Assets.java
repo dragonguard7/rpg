@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public class Assets {
 	
 	private static final int width = 64, height = 64;
-	public static BufferedImage playerStill, grass, water, tree, stone, road, dirt, brick, monster;
+	public static BufferedImage playerStill, grass, water, tree, stone, road, dirt, brick, monster, money;
 	public static BufferedImage[] playerUp, playerDown, playerRight, playerLeft;
 	public static BufferedImage[] startButton;
 	
@@ -34,6 +34,7 @@ public class Assets {
 		startButton[0] = sheet.crop(6 * width, 6 * height, width *2, height);
 		startButton[1] = sheet.crop(6 * width, 7 * height, width *2, height);
 		monster = sheet.crop(2 * width, 2 * height, width, height);
+		money = sheet.crop(0 * width, 7 * height, width, height);
 		
 		
 		grass = sheet.crop(2 * width, 1 * height, width, height);

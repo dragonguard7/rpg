@@ -1,6 +1,5 @@
 package dev.rpg.states;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import dev.rpg.Handler;

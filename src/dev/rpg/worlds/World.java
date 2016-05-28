@@ -3,6 +3,7 @@ package dev.rpg.worlds;
 import java.awt.Graphics;
 
 import dev.rpg.Handler;
+import dev.rpg.Effects.EffectsManager;
 import dev.rpg.entities.EntityManager;
 import dev.rpg.entities.creature.Player;
 import dev.rpg.entities.statics.Tree;
@@ -21,12 +22,15 @@ public class World {
 	private EntityManager entityManager;
 //Item
 	private ItemManager itemManager;
+//Effects
+	private EffectsManager effectsManager;
 
 //Constructor
 	public World(Handler handler, String path){
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler,100,100));
 		itemManager = new ItemManager(handler);
+		effectsManager = new EffectsManager(handler);
 		
 		entityManager.addEntity(new Tree(handler, 100, 250));
 		entityManager.addEntity(new Tree(handler, 200, 350));
@@ -39,7 +43,9 @@ public class World {
 	}
 
 	public void tick(){
+		effectsManager.tick();
 		entityManager.tick();
+		itemManager.tick();
 	}
 	
 	public void render(Graphics g){
@@ -54,7 +60,8 @@ public class World {
 				getTile(x,y).render(g,(int)(x * Tile.TILEWIDTH - handler.getGameCamera().getxOffset()),(int)(y * Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
 			}
 		}
-		
+//Effects
+		effectsManager.render(g);
 //Items
 		itemManager.render(g);
 //Entity
@@ -122,5 +129,10 @@ public class World {
 		this.itemManager = itemManager;
 	}
 
+	public EffectsManager getEffectsManager() {
+		return effectsManager;
+	}
+
+	
 	
 }

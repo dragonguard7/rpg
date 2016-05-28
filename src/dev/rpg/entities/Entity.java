@@ -2,7 +2,6 @@ package dev.rpg.entities;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
-
 import dev.rpg.Handler;
 
 public abstract class Entity {
@@ -35,6 +34,7 @@ public abstract class Entity {
 	
 	public void hurt(int amt){
 		health -= amt;
+//Attack effect on entity here?
 		if(health <= 0){
 			active = false;
 			die();
@@ -55,6 +55,12 @@ public abstract class Entity {
 	
 	public Rectangle getCollisionBounds(float xOffset, float yOffset){
 		return new Rectangle((int)(x + bounds.x + xOffset), (int)(y + bounds.y + yOffset),bounds.width, bounds.height);
+	}
+	
+	public Rectangle entityOffset(){
+		return(new Rectangle((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+				(int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+				bounds.width, bounds.height));
 	}
 	
 	

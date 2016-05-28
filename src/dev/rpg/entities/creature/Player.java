@@ -1,12 +1,15 @@
 package dev.rpg.entities.creature;
 
+
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import dev.rpg.Handler;
+import dev.rpg.Effects.Effects;
 import dev.rpg.entities.Entity;
 import dev.rpg.gfx.Animation;
 import dev.rpg.gfx.Assets;
+import dev.rpg.items.Item;
 
 public class Player extends Creature{
 
@@ -19,7 +22,7 @@ public class Player extends Creature{
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		bounds.x = 10;
+		bounds.x = 15;
 		bounds.y = 32;
 		bounds.width = 40;
 		bounds.height = 32;
@@ -45,6 +48,20 @@ public class Player extends Creature{
 		
 	//Attack
 		checkAttacks();
+	//Items
+		checkPickUp();
+	}
+	
+	private void checkPickUp(){
+		
+		for(Item i: handler.getWorld().getItemManager().getItems()){
+		
+			if(i.itemOffset().intersects(this.entityOffset())){
+				i.setPickedUp(true);
+			}
+		}
+		
+
 	}
 	
 	private void checkAttacks(){
@@ -83,6 +100,10 @@ public class Player extends Creature{
 				continue;
 			}
 			if(e.getCollisionBounds(0, 0).intersects(ar)){
+				Effects attack = new Effects(Assets.attack);
+				attack.setX((int)ar.x);
+				attack.setY((int)ar.y);
+				handler.getWorld().getEffectsManager().addEffect(attack);
 				e.hurt(1);
 				return;
 			}
@@ -119,8 +140,12 @@ public class Player extends Creature{
 		g.drawImage(getCurrentAnimationFrame(), (int)(x - handler.getGameCamera().getxOffset()), (int)(y - handler.getGameCamera().getyOffset()), width, height,null); //(Image, Xpos, Ypos, Xsize, Ysize, observer)
 		
 	//Draws collision box
-		//g.setColor(Color.red);
-		//g.fillRect((int)(x + bounds.x -handler.getGameCamera().getxOffset()), (int)(y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+		/*
+		g.setColor(Color.blue);
+		g.fillRect((int)(this.getCollisionBounds(0, 0).x), (int)(this.getCollisionBounds(0, 0).y), bounds.width, bounds.height);
+		g.setColor(Color.red);
+		g.fillRect((int)(x + bounds.x -handler.getGameCamera().getxOffset()), (int)(y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+		*/
 	}
 	
 	private BufferedImage getCurrentAnimationFrame(){

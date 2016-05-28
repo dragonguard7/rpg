@@ -24,7 +24,7 @@ public class ItemManager {
 			Item i = it.next();
 			i.tick();
 			//This just removes it from the world does not add it any inventory
-			if(i.getCount() == Item.PICKEDUP){
+			if(i.pickedUp){
 				it.remove();
 			}
 		}
@@ -42,8 +42,17 @@ public class ItemManager {
 	}
 //Getters and setters
 
+	
 	public Handler getHandler() {
 		return handler;
+	}
+
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
 	}
 
 	public void setHandler(Handler handler) {

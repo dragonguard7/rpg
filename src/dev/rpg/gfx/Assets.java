@@ -8,6 +8,7 @@ public class Assets {
 	public static BufferedImage playerStill, grass, water, tree, stone, road, dirt, brick, monster, money;
 	public static BufferedImage[] playerUp, playerDown, playerRight, playerLeft;
 	public static BufferedImage[] startButton;
+	public static BufferedImage attack;
 	
 
 	
@@ -35,6 +36,7 @@ public class Assets {
 		startButton[1] = sheet.crop(6 * width, 7 * height, width *2, height);
 		monster = sheet.crop(2 * width, 2 * height, width, height);
 		money = sheet.crop(0 * width, 7 * height, width, height);
+		attack = sheet.crop(0 * width, 6 * height, width, height);
 		
 		
 		grass = sheet.crop(2 * width, 1 * height, width, height);

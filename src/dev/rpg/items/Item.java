@@ -1,6 +1,8 @@
 package dev.rpg.items;
 
+
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import dev.rpg.Handler;
@@ -14,12 +16,14 @@ public class Item {
 	public static Item money = new Item(Assets.money, "Gold", 0);
 	
 	
-	public static final int ITEMWIDTH = 32, ITEMHEIGHT = 32, PICKEDUP = -1;
+	public static final int ITEMWIDTH = 32, ITEMHEIGHT = 32;
 	
+	protected boolean pickedUp = false;
 	protected Handler handler;
 	protected BufferedImage texture;
 	protected String name;
 	protected final int id;
+	protected Rectangle bounds;
 	
 	protected int x, y, count;
 	
@@ -28,7 +32,8 @@ public class Item {
 		this.name = name;
 		this.id = id;
 		count = 1;
-		
+		bounds = new Rectangle(0,0,ITEMWIDTH,ITEMHEIGHT);
+	
 		items[id] = this;
 	}
 	
@@ -45,6 +50,12 @@ public class Item {
 	
 	public void render(Graphics g, int x, int y){
 		g.drawImage(texture, x, y, ITEMWIDTH, ITEMHEIGHT, null);
+		
+		//g.setColor(Color.red);
+		//g.fillRect((int)(x + bounds.x -handler.getGameCamera().getxOffset()), (int)(y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+//		g.fillRect((int)(x + bounds.x), (int)(y + bounds.y), bounds.width, bounds.height);
+
+		
 	}
 	
 	public void setPosition(int x, int y){
@@ -58,12 +69,30 @@ public class Item {
 		return i;
 	}
 	
+	public Rectangle itemOffset(){
+		return(new Rectangle((int)(x + bounds.x - handler.getGameCamera().getxOffset()),
+				(int)(y + bounds.y - handler.getGameCamera().getyOffset()),
+				bounds.width, bounds.height));
+	}
+	
 	
 	
 //Getters and setters
-
+	
 	public Handler getHandler() {
 		return handler;
+	}
+
+	public boolean isPickedUp() {
+		return pickedUp;
+	}
+
+	public void setPickedUp(boolean pickedUp) {
+		this.pickedUp = pickedUp;
+	}
+
+	public Rectangle getBounds() {
+		return bounds;
 	}
 
 	public void setHandler(Handler handler) {

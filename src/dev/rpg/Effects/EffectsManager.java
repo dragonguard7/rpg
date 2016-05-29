@@ -25,7 +25,6 @@ public class EffectsManager {
 				it.remove();
 			}
 			e.tick();
-			e.completed = true;
 		}
 		
 	}

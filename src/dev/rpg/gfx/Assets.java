@@ -8,14 +8,14 @@ public class Assets {
 	public static BufferedImage playerStill, grass, water, tree, stone, road, dirt, brick, monster, money;
 	public static BufferedImage[] playerUp, playerDown, playerRight, playerLeft;
 	public static BufferedImage[] startButton;
-	public static BufferedImage attack;
+	public static BufferedImage attack, mushroom;
 	
 
 	
 	
 	public static void init(){
 		//SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/spritesheet512.png"));
-		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/ps.png"));
+		SpriteSheet sheet = new SpriteSheet(ImageLoader.loadImage("/textures/teemo.png"));
 		
 		playerRight = new BufferedImage[2];
 		playerLeft = new BufferedImage[2];
@@ -37,6 +37,7 @@ public class Assets {
 		monster = sheet.crop(2 * width, 2 * height, width, height);
 		money = sheet.crop(0 * width, 7 * height, width, height);
 		attack = sheet.crop(0 * width, 6 * height, width, height);
+		mushroom = sheet.crop(1 * width, 7 * height, width, height);
 		
 		
 		grass = sheet.crop(2 * width, 1 * height, width, height);

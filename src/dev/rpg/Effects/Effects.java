@@ -15,13 +15,24 @@ public class Effects {
 	protected BufferedImage effect;
 	protected int x, y;
 	protected boolean completed = false;
+	protected long effectTime, effectStart;
+	
+	public Effects(BufferedImage effect, long effectTime){
+		this.effect = effect;
+		this.effectTime = effectTime;
+		effectStart = System.currentTimeMillis();
+	}
 	
 	public Effects(BufferedImage effect){
 		this.effect = effect;
 	}
 	
 	public void tick(){
-		
+		long time = System.currentTimeMillis();
+		if(time - this.effectStart < effectTime){
+			return;
+		}
+		this.completed = true;
 	}
 	
 	public void render(Graphics g){
@@ -29,7 +40,7 @@ public class Effects {
 			return;
 		}
 		
-		g.drawImage(Assets.attack,(int)(x-handler.getGameCamera().getxOffset()), (int)(y-handler.getGameCamera().getyOffset()),EFFECTWIDTH, EFFECTHEIGHT, null);
+		g.drawImage(effect,(int)(x-handler.getGameCamera().getxOffset()), (int)(y-handler.getGameCamera().getyOffset()),EFFECTWIDTH, EFFECTHEIGHT, null);
 	}
 
 //Getters and setters

@@ -133,6 +133,13 @@ public class Player extends Creature{
 		if(handler.getKeyManager().right){
 			xMove = speed;
 		}
+		if(handler.getKeyManager().rKey){
+			Effects mushroom = new Effects(Assets.mushroom, 10000000);
+			mushroom.setX((int)this.getX());
+			mushroom.setY((int)this.getY());
+			handler.getWorld().getEffectsManager().addEffect(mushroom);
+		}
+			
 		
 	}
 

@@ -7,6 +7,7 @@ import dev.rpg.Effects.EffectsManager;
 import dev.rpg.entities.EntityManager;
 import dev.rpg.entities.creature.Player;
 import dev.rpg.entities.statics.Tree;
+import dev.rpg.inventory.InventoryManager;
 import dev.rpg.items.ItemManager;
 import dev.rpg.tiles.Tile;
 import dev.rpg.utils.Utils;
@@ -22,6 +23,8 @@ public class World {
 	private EntityManager entityManager;
 //Item
 	private ItemManager itemManager;
+//Inventory
+	private InventoryManager inventoryManager;
 //Effects
 	private EffectsManager effectsManager;
 
@@ -30,7 +33,9 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler,100,100));
 		itemManager = new ItemManager(handler);
+		inventoryManager = new InventoryManager(40, 80);
 		effectsManager = new EffectsManager(handler);
+		
 		
 		entityManager.addEntity(new Tree(handler, 100, 250));
 		entityManager.addEntity(new Tree(handler, 200, 350));
@@ -46,6 +51,7 @@ public class World {
 		effectsManager.tick();
 		entityManager.tick();
 		itemManager.tick();
+		inventoryManager.tick();
 	}
 	
 	public void render(Graphics g){
@@ -61,11 +67,14 @@ public class World {
 			}
 		}
 //Effects
-		effectsManager.render(g);
+		effectsManager.render(g);	
+//Entity
+		entityManager.render(g);		
 //Items
 		itemManager.render(g);
-//Entity
-		entityManager.render(g);
+//Inventory
+		inventoryManager.render(g);
+
 		
 	}//End rendering
 	
@@ -132,6 +141,12 @@ public class World {
 	public EffectsManager getEffectsManager() {
 		return effectsManager;
 	}
+
+	public InventoryManager getInventoryManager() {
+		return inventoryManager;
+	}
+	
+	
 
 	
 	

@@ -139,6 +139,9 @@ public class Player extends Creature{
 			mushroom.setY((int)this.getY());
 			handler.getWorld().getEffectsManager().addEffect(mushroom);
 		}
+		if(handler.getKeyManager().iKey){
+			handler.getWorld().getInventoryManager().isOpen = !handler.getWorld().getInventoryManager().isOpen;
+		}
 			
 		
 	}

@@ -7,7 +7,7 @@ public class KeyManager implements KeyListener{
 
 	private boolean[] keys;
 	public boolean up, down, left, right;
-	public boolean aUp, aDown, aLeft, aRight, rKey;
+	public boolean aUp, aDown, aLeft, aRight, rKey, iKey;
 	
 	public void tick(){
 		aUp = keys[KeyEvent.VK_UP];
@@ -20,6 +20,7 @@ public class KeyManager implements KeyListener{
 		left = keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_D];
 		rKey = keys[KeyEvent.VK_R];
+		iKey = keys[KeyEvent.VK_I];
 	}
 	
 	public KeyManager(){

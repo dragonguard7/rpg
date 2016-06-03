@@ -58,6 +58,7 @@ public class Player extends Creature{
 		
 			if(i.itemOffset().intersects(this.entityOffset())){
 				i.setPickedUp(true);
+				handler.getWorld().getInventoryManager().addItemToInventory(i);
 			}
 		}
 		
@@ -104,7 +105,7 @@ public class Player extends Creature{
 				attack.setX((int)ar.x);
 				attack.setY((int)ar.y);
 				handler.getWorld().getEffectsManager().addEffect(attack);
-				e.hurt(1);
+				e.hurt(5);
 				return;
 			}
 		}
@@ -141,6 +142,42 @@ public class Player extends Creature{
 		}
 		if(handler.getKeyManager().iKey){
 			handler.getWorld().getInventoryManager().isOpen = !handler.getWorld().getInventoryManager().isOpen;
+		}
+		if(handler.getMouseManager().isRightPressed()){
+			
+			float curX, curY, mouseX, mouseY;
+			mouseX = handler.getMouseManager().getMouseX();
+			mouseY = handler.getMouseManager().getMouseY();
+			curX = x - handler.getGameCamera().getxOffset();
+			curY = y - handler.getGameCamera().getyOffset();
+			
+			//Down
+			if(curY + this.bounds.height < mouseY){
+				yMove = speed;
+				if(curX > mouseX){//left
+					xMove = -speed;
+				}else if(curX + this.bounds.width < mouseX){//right
+					xMove = speed;
+				}
+			}
+			//Up
+			if(curY > mouseY){
+				yMove = -speed;
+				if(curX > mouseX){//left
+					xMove = -speed;
+				}else if(curX + this.bounds.width < mouseX){//right
+					xMove = speed;
+				}
+			}
+			//left
+			if(curX > mouseX && (mouseY > curY && mouseY < curY + this.bounds.height)){
+				xMove = -speed;
+			}
+			//right
+			if(curX + this.bounds.width < mouseX && (mouseY > curY && mouseY < curY + this.bounds.height)){
+				xMove = speed;
+			}
+			
 		}
 			
 		

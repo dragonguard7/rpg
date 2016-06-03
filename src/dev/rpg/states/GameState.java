@@ -17,7 +17,7 @@ public class GameState extends State {
 	public GameState(Handler handler){
 		super(handler);
 		world = new World(handler, "res/worlds/world1.txt");
-		font = new Font("Serif",Font.BOLD, 20);
+		//font = new Font("Serif",Font.BOLD, 20);
 		handler.setWorld(world);	
 	}
 	

@@ -33,7 +33,7 @@ public class World {
 		this.handler = handler;
 		entityManager = new EntityManager(handler, new Player(handler,100,100));
 		itemManager = new ItemManager(handler);
-		inventoryManager = new InventoryManager(40, 80);
+		inventoryManager = new InventoryManager(handler,40, 80);
 		effectsManager = new EffectsManager(handler);
 		
 		

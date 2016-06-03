@@ -19,6 +19,7 @@ public class Game implements Runnable {
 	private boolean running = false;
 	private BufferStrategy bs;
 	private Graphics g;
+	private int FPS = 60;
 	
 
 	private int width, height;
@@ -92,7 +93,7 @@ public class Game implements Runnable {
 		if(State.getState() != null){
 			State.getState().render(g);
 		}
-		
+		g.drawString("FPS: " + Integer.toString(FPS), width - 50, 20);
 		//end render
 		
 		bs.show();
@@ -103,8 +104,7 @@ public class Game implements Runnable {
 	
 		init();
 		
-		int fps = 60;
-		double timePerTick = 1000000000 / fps;
+		double timePerTick = 1000000000 / FPS;
 		double delta = 0;
 		long now;
 		long lastTime = System.nanoTime();
@@ -126,7 +126,8 @@ public class Game implements Runnable {
 			}
 			
 			if(timer >= 1000000000){
-				System.out.println("Ticks and Frames: " + ticks);
+				//System.out.println("Ticks and Frames: " + ticks);
+				FPS = ticks;
 				ticks = 0;
 				timer = 0;
 			}

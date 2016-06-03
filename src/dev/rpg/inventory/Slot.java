@@ -37,7 +37,9 @@ public class Slot{
 	}
 
 	public boolean addItem(Item item, int amount){
+		
 		if(item != null){
+			System.out.println("Item is null");
 			if(item.getId() == this.item.getId()){
 				this.item.setCount(this.item.getCount() + amount);
 				return true;
@@ -48,6 +50,7 @@ public class Slot{
 			this.item = item;
 			return true;
 		}
+		
 	}
 	
 	
